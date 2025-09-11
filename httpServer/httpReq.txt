@@ -1,0 +1,13 @@
+http get=>
+when you want to get/ just read some data from the server.
+
+http post =>
+when you want to send/login/create user signup any data, html form create => post   and mutate some data in the server.
+
+http put =>
+upload something on the server like image upload 
+
+http get =>
+if you want to update something on the server.
+
+http delete => if you want to delete some data from the database through the server
