@@ -1,0 +1,2 @@
+to install express we have to install :-
+ npm i express

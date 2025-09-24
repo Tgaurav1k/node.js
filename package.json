@@ -4,9 +4,13 @@
   "main": "hello.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node hello.js"
+    "start": "node hello.js"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
-} 
+  "description": "",
+  "dependencies": {
+    "chart.js": "^4.5.0",
+    "express": "^5.1.0"
+  }
+}
