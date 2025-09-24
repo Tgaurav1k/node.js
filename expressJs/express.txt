@@ -1,2 +1,14 @@
 to install express we have to install :-
  npm i express
+
+ simple add get to go to page and return the send response data
+
+ eg =>  app.Method(Path, Handler)
+
+ 1. app = app is the instance of express
+ 
+ 2. method = method is the http request , in lower case , {get, post , update, delete}
+
+3.  "/" Path = path is the path of the server 
+
+4. Handler is the function executed when theroute is matched 

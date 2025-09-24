@@ -3,48 +3,29 @@ const  http = require("http");
 const fs = require("fs");
 const url = require("url");
 const { verify } = require("crypto");
-
 // import express as it will be must 
 const express = require("express");
 
-function myHandler (req,res){
-const myServer = http.createServer((req,res)=>{
-   if(req.url === "/favicon.ico" ) return res.end();
-   const log = `${Date.now()}: ${req.method} ${req.url} New Req Received\n`;
-   const myUrl = url.parse(req.url, true);
-  // console.log(myUrl);
-  fs.appendFile("httpReqData.txt",log, (err,data)=>{
-    switch (myUrl.pathname){
-      case "/":
-        // req for get 
-        if(req.method === "GET")
-        res.end("Home Page")
-        break;
-        case "/about":
-          const userName = myUrl.query.myName;
-          res.end(`Hi, ${userName}`);
-          break;
-        case "/search":
-       const search = myUrl.query.search_query;   
-        res.end("Here are the result for"+ search);
-        case '/signup':
-        if(req.method === 'GET')
-          res.end("This is a signup Form");
-        else if ( req.method=== "POST"){
-          // DB query run 
-          res.end("Success");
-        }
-        default:
-          res.end("404 Not Found");
 
-    }
-  });
+
+const app = express();
+// request for url
+app.get("/", (req,res) =>{
+  return res.send(`Hello ${req.query.name} from Home Page`)
+} );
+
+app.get("/about", (req,res) =>{
+  return res.send("Hello from about page" + "hey"+req.query.name+ " & i am " + req.query.age +  "years old" );
+} );
+
+// we can direct write 
+
+app.listen(8000, () =>{
+  console.log("Server Started")
 });
-}
 
 
+// const myMainServer = http.createServer(app);
 
-const myMainServer = http.createServer(myHandler);
-
-myMainServer.listen(8000, () =>console.log("Server Started")
- )
+// myMainServer.listen(8000, () =>console.log("Server Started")
+// )      
