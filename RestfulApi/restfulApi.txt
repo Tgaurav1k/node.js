@@ -1,0 +1,27 @@
+restful api => 
+      it is the way for a client , browser, frontned to communicate with the server using the http method.
+
+REST => Representational State Transfer
+API => Application Programming Interface
+
+rest defines the rules that how server and client can communicate.
+
+Rules 
+1) =>Always respect http method
+HTTP Method	Meaning	Example :-
+1. GET -> users	Read data and return data 
+
+2. POST -> handle new user Create data users → create new user
+
+3. PATCH ->	Update the user → update only email
+
+4. DELETE	Delete data	/users/7 → delete user
+
+2)
+SERVER CLIENT ARCHITECTURE :-
+server <- req <- client 
+server -> res -> client 
+
+res.send()    res.JSON(--)
+res.render()
+
