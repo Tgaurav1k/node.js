@@ -4,7 +4,6 @@ const fs = require("fs");
 const url = require("url");
 const { verify } = require("crypto");
 
-
 // create web server
 const myServer = http.createServer((req,res)=>{
    if(req.url === "/favicon.ico" ) return res.end();

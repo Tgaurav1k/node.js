@@ -17,3 +17,19 @@ in node modules
 // Version
 5.1.0
 
+
+
+
+
+
+ui portal 
+
+1. excel file input 
+2. folder according to pronmpt all the images aaegi 
+prompt 
+
+
+IMAGE_PROVIDER=gemini
+GEMINI_API_KEY=AIzaSyCHBoJXD6mZGWY8HWooxwEVfN69DOgsX4Y
+GEMINI_MODEL=models/gemini-2.5-flash-image
+this is env code
