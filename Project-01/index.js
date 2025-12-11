@@ -1,7 +1,14 @@
 const express = require("express");
 const users = require("./MOCK_DATA.json") 
+const fs = require('fs')
 const app = express();
 const PORT = 8080;
+
+// ⭐ IMPORTANT: Enable JSON body parsing
+app.use(express.json());
+
+// Middleware plugin 
+app.use(express.urlencoded({extended: false}));
 
 // Routes
 app.get("/api/users", (req, res)=>{
@@ -9,19 +16,24 @@ app.get("/api/users", (req, res)=>{
 })
 
 // REST API     // get request 
-app.get("/api/users/:id", (req, res)=>{
-    const id = Number(req.params.id);
-    const user = users.find((user)=> user.id === id );
-    return res.json(user);
-})
-.patch((req,res)=>{
-    // Edit usr with id 
-    return res.json({ status: "Pending"});
-})
-.delete((req, res)=>{
-    // delete user with id 
-    return res.json({status: "Pending"})
-});
+app.route("/api/users/:id")
+    .get((req, res) => {
+        const id = Number(req.params.id);
+        const user = users.find((user) => user.id === id);
+        return res.json(user);
+    })
+    .patch((req, res) => {
+        // Edit user with id
+        return res.json({ status: "Pending" });
+    })
+    .delete((req, res) => {
+        // delete user with id
+        const body = req.body;
+        users.pull({...body, id: users.length - 1})
+        fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err,data) =>{
+          return  res.json({status: "success", id: users.length})
+        })
+    });
 // app.get("/api/users/:id", (req, res)=> {
 //     const id = Number(req.params.id);
 //     const user = users.find((user)=> user.id === id);
@@ -42,7 +54,13 @@ app.get("/users" , (req,res)=>{
 // POST new user 
 
 app.post("/api/users", (req,res)=>{
-
+     const body = req.body;
+     users.push({...body, id: users.length +1 });
+     fs.writeFile('./MOCK_DATA.json', JSON.stringify(users), (err,data) =>{
+          return  res.json({status: "success", id: users.length})
+     } )
+    //  console.log('Body', body);
+   
 } )
 
 
