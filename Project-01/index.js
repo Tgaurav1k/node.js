@@ -10,8 +10,50 @@ app.use(express.json());
 // Middleware plugin 
 app.use(express.urlencoded({extended: false}));
 
+
+app.use((req, res , next)=>{
+    console.log("Gaurav here");
+    fs.appendFile(
+        "log.txt",
+        `${Date.now()}: ${req.ip}: ${req.method}: ${req.path}\n `,
+        (err, data)=>{
+            next();
+        }
+
+    )
+
+})
+//  this is for my users where we can see middleware direct retun us message without passes it to the next middleware  
+
+// app.use((req, res , next)=>{
+//     console.log("Hello from middleware 1");
+//     return res.json({mgs:"hello from middleware 2"});
+// })
+
+
+app.use((req, res , next)=>{
+    console.log("Hello from middleware 1");
+    // req.myUserName = "Gaurav.thakur1k"  
+    req.creditcardNo = "2323"
+    next();
+});
+
+app.use((req, res , next) =>{
+    // console.log("hello from middle ware 2", req.myUserName);
+    console.log("here is the credit card number ", req.creditcardNo);
+    next();
+});
+
+app.use((req, res, next)=>{
+    console.log("this side gaurav");
+    // return res.end("Gaurav here");
+    next();
+})
+
+
 // Routes
 app.get("/api/users", (req, res)=>{
+    // console.log("I am in get route ", req.myUserName);
     return res.json(users)
 })
 
@@ -51,7 +93,7 @@ app.get("/users" , (req,res)=>{
     res.send(html);
 })
 
-// POST new user 
+// POST new user
 
 app.post("/api/users", (req,res)=>{
      const body = req.body;
