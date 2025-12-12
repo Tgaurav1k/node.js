@@ -110,5 +110,7 @@ app.post("/api/users", (req,res)=>{
 
 
 app.listen(PORT, ()=>{
-    console.log(`Server stated at ${PORT}`)
+    const name = "gaurav";
+    console.log(`Server stated at ${PORT}
+        hey ${name} its your server`)
 })
