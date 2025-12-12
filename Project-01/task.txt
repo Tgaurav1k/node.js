@@ -9,7 +9,7 @@ GET /api/users/2 - Get the user with id 2
 
 to post a data we need a midle ware to shwo that data in the body to do this =>
       we have to enable json body parsing and use a middleware also 
-
+3
 app.use(express.json());
 
 // middleware plugin

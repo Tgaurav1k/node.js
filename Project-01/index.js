@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Middleware plugin 
 app.use(express.urlencoded({extended: false}));
-
+app.use(express.json({extended:false}));
 
 app.use((req, res , next)=>{
     console.log("Gaurav here");
@@ -50,9 +50,12 @@ app.use((req, res, next)=>{
     next();
 })
 
+// resonse time =>
 
-// Routes
+// REST API Routes 
 app.get("/api/users", (req, res)=>{
+    res.setHeader("X-myName", "Gaurav Kumar");
+    console.log(req.headers);
     // console.log("I am in get route ", req.myUserName);
     return res.json(users)
 })
