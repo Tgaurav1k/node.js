@@ -1,11 +1,43 @@
 const express = require("express");
 const users = require("./MOCK_DATA.json");
 const fs = require("fs");
+const mongoose = require("mongoose")
 const app = express();
 const PORT = 8000;
 
 // ⭐ IMPORTANT: Enable JSON body parsing
 // app.use(express.json());
+
+// Connection  
+mongoose.connect("mongodb://localhost:27017/youtube-App-Gaurav")
+.then(()=>console.log("MongoDb Connected"))
+.catch(err=>console.log("Error Occur"))
+
+// Schema
+const userSchema = new mongoose.Schema({
+  firstNmae:{
+    type: String,
+    required: true,
+  },
+  lastName:{
+    type:String,
+  },
+  email:{
+    type: String,
+    required: true,
+    unique: true,
+  },
+    jobTitle:{
+      type:String,
+    },
+    gender:{
+      type: String,
+      required: true,
+    }
+})
+
+const User = mongoose.model("user", userSchema);
+
 
 // Middleware plugin
 app.use(express.urlencoded({ extended: false }));
@@ -95,7 +127,7 @@ app.get("/users", (req, res) => {
 
 // POST new user
 
-app.post("/api/users", (req, res) => {
+app.post("/api/users", async (req, res) => {
   const body = req.body;
   if (
     !body ||
@@ -109,12 +141,22 @@ app.post("/api/users", (req, res) => {
       .status(400)
       .json({ msg: "failed something is missing, all fields are required " });
   }
-  users.push({ ...body, id: users.length + 1 });
-  fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, data) => {
-    return res.status(201).json({ status: "success", id: users.length });
+    
+ const result = await User.create({
+    firstName: body.first_name,
+    lastName: body.last_name,
+    email: body.email,
+    gender:body.gender,
+    jobTtle: body.job_title
+  })
+
   });
+  // users.push({ ...body, id: users.length + 1 });
+  // fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, data) => {
+  //   return res.status(201).json({ status: "success", id: users.length });
+  // });
   //  console.log('Body', body);
-});
+
 
 app.listen(PORT, () => {
   const name = "gaurav";
